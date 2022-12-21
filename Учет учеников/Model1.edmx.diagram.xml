@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5a068484aced44f5a6217ac4bae12d4b" Name="Diagram1" >
+        <EntityTypeShape EntityType="Model1.LogPas" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model1.Prepod" Width="1.5" PointX="4.125" PointY="1" />
+        <AssociationConnector Association="Model1.PrepodLogPas" />
+        <EntityTypeShape EntityType="Model1.Discip" Width="1.5" PointX="6.875" PointY="0.75" />
+        <AssociationConnector Association="Model1.DiscipPrepod" />
+        <EntityTypeShape EntityType="Model1.Children" Width="1.5" PointX="4" PointY="4.25" />
+        <EntityTypeShape EntityType="Model1.Class" Width="1.5" PointX="0.75" PointY="4" />
+        <AssociationConnector Association="Model1.ChildrenClass" />
+        <EntityTypeShape EntityType="Model1.Ocenki" Width="1.5" PointX="7.5" PointY="3.625" />
+        <AssociationConnector Association="Model1.ChildrenOcenki" />
+        <AssociationConnector Association="Model1.PrepodOcenki" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

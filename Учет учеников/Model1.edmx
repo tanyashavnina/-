@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="Model1TargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LogPasSet" EntityType="Model1.LogPas" />
+          <EntitySet Name="PrepodSet" EntityType="Model1.Prepod" />
+          <AssociationSet Name="PrepodLogPas" Association="Model1.PrepodLogPas">
+            <End Role="Prepod" EntitySet="PrepodSet" />
+            <End Role="LogPas" EntitySet="LogPasSet" />
+          </AssociationSet>
+          <EntitySet Name="DiscipSet" EntityType="Model1.Discip" />
+          <AssociationSet Name="DiscipPrepod" Association="Model1.DiscipPrepod">
+            <End Role="Discip" EntitySet="DiscipSet" />
+            <End Role="Prepod" EntitySet="PrepodSet" />
+          </AssociationSet>
+          <EntitySet Name="ChildrenSet" EntityType="Model1.Children" />
+          <EntitySet Name="ClassSet" EntityType="Model1.Class" />
+          <AssociationSet Name="ChildrenClass" Association="Model1.ChildrenClass">
+            <End Role="Children" EntitySet="ChildrenSet" />
+            <End Role="Class" EntitySet="ClassSet" />
+          </AssociationSet>
+          <EntitySet Name="OcenkiSet" EntityType="Model1.Ocenki" />
+          <AssociationSet Name="ChildrenOcenki" Association="Model1.ChildrenOcenki">
+            <End Role="Children" EntitySet="ChildrenSet" />
+            <End Role="Ocenki" EntitySet="OcenkiSet" />
+          </AssociationSet>
+          <AssociationSet Name="PrepodOcenki" Association="Model1.PrepodOcenki">
+            <End Role="Prepod" EntitySet="PrepodSet" />
+            <End Role="Ocenki" EntitySet="OcenkiSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="LogPas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_name" Type="String" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <NavigationProperty Name="Prepod" Relationship="Model1.PrepodLogPas" FromRole="LogPas" ToRole="Prepod" />
+        </EntityType>
+        <EntityType Name="Prepod">
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" Nullable="false" />
+          <Property Name="Dr" Type="String" Nullable="false" />
+          <Property Name="Discip" Type="String" Nullable="false" />
+          <NavigationProperty Name="LogPas" Relationship="Model1.PrepodLogPas" FromRole="Prepod" ToRole="LogPas" />
+          <NavigationProperty Name="Discip1" Relationship="Model1.DiscipPrepod" FromRole="Prepod" ToRole="Discip" />
+          <NavigationProperty Name="Ocenki" Relationship="Model1.PrepodOcenki" FromRole="Prepod" ToRole="Ocenki" />
+        </EntityType>
+        <Association Name="PrepodLogPas">
+          <End Type="Model1.Prepod" Role="Prepod" Multiplicity="1" />
+          <End Type="Model1.LogPas" Role="LogPas" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="Discip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Prepod" Relationship="Model1.DiscipPrepod" FromRole="Discip" ToRole="Prepod" />
+        </EntityType>
+        <Association Name="DiscipPrepod">
+          <End Type="Model1.Discip" Role="Discip" Multiplicity="1" />
+          <End Type="Model1.Prepod" Role="Prepod" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="Children">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" Nullable="false" />
+          <Property Name="Dr" Type="String" Nullable="false" />
+          <Property Name="Class" Type="String" Nullable="false" />
+          <Property Name="Adres" Type="String" Nullable="false" />
+          <NavigationProperty Name="Class1" Relationship="Model1.ChildrenClass" FromRole="Children" ToRole="Class" />
+          <NavigationProperty Name="Ocenki" Relationship="Model1.ChildrenOcenki" FromRole="Children" ToRole="Ocenki" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Children" Relationship="Model1.ChildrenClass" FromRole="Class" ToRole="Children" />
+        </EntityType>
+        <Association Name="ChildrenClass">
+          <End Type="Model1.Children" Role="Children" Multiplicity="0..1" />
+          <End Type="Model1.Class" Role="Class" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Ocenki">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO_children" Type="String" Nullable="false" />
+          <Property Name="Discip" Type="String" Nullable="false" />
+          <Property Name="Prepod" Type="String" Nullable="false" />
+          <Property Name="Ocenka" Type="String" Nullable="false" />
+          <NavigationProperty Name="Children" Relationship="Model1.ChildrenOcenki" FromRole="Ocenki" ToRole="Children" />
+          <NavigationProperty Name="Prepod1" Relationship="Model1.PrepodOcenki" FromRole="Ocenki" ToRole="Prepod" />
+        </EntityType>
+        <Association Name="ChildrenOcenki">
+          <End Type="Model1.Children" Role="Children" Multiplicity="1" />
+          <End Type="Model1.Ocenki" Role="Ocenki" Multiplicity="0..1" />
+        </Association>
+        <Association Name="PrepodOcenki">
+          <End Type="Model1.Prepod" Role="Prepod" Multiplicity="1" />
+          <End Type="Model1.Ocenki" Role="Ocenki" Multiplicity="0..1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Model1" />
+        <Alias Key="Target" Value="Model1.Store" />
+        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1TargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
